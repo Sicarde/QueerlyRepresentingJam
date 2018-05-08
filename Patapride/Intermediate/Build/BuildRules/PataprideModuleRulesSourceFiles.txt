@@ -1,3 +1,3 @@
-C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Source\Patapride\Patapride.Build.cs
-C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Source\Patapride.Target.cs
-C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Source\PataprideEditor.Target.cs
+C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Source\Patapride\Patapride.Build.cs
+C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Source\Patapride.Target.cs
+C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Source\PataprideEditor.Target.cs

@@ -6,6 +6,9 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Rythms.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+#include "Engine.h"
 
 APataprideCharacter::APataprideCharacter()
 {
@@ -40,9 +43,22 @@ APataprideCharacter::APataprideCharacter()
 	GetCharacterMovement()->GroundFriction = 3.f;
 	GetCharacterMovement()->MaxWalkSpeed = 600.f;
 	GetCharacterMovement()->MaxFlySpeed = 600.f;
-
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+}
+void APataprideCharacter::Tick(float deltaTime) {
+	float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+	FTimespan currentTime = FTimespan::FromSeconds(realtimeSeconds);
+	double currentTimeMs = currentTime.GetTotalMilliseconds();
+	if (currentNote >= testLevel.Num())
+		return;
+	Note n = testLevel[currentNote];
+	double timeNote = n.msec + n.sec * 1000.0 + n.min * 60000.0;
+	if (timeNote + nbMSecGood < currentTimeMs)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Too late :/");
+		currentNote++;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -51,18 +67,63 @@ APataprideCharacter::APataprideCharacter()
 void APataprideCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// set up gameplay key bindings
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	//PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APataprideCharacter::MoveRight);
+	for (FString name : buttonsNames)
+	{
+		FInputActionBinding PressedButton(*name, IE_Pressed);
+		PressedButton.ActionDelegate.GetDelegateForManualSet().BindLambda(
+			[this, name]() { checkNoteTiming(name); }
+		);
+		PlayerInputComponent->AddActionBinding(PressedButton);
+		/*FInputActionBinding PressedButton("Up", IE_Released);
+		PressedButton.ActionDelegate.GetDelegateForManualSet().BindLambda(
+		[this]() { checkNoteTiming("Up"); }
+		);
+		PlayerInputComponent->AddActionBinding(PressedButton);*/
+	}
 
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &APataprideCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &APataprideCharacter::TouchStopped);
 }
 
+void APataprideCharacter::checkNoteTiming(FString const &noteName)
+{
+	UE_LOG(LogTemp, Warning, TEXT("current note %d"), currentNote);
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("current note %d"), currentNote);
+	float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+	FTimespan currentTime = FTimespan::FromSeconds(realtimeSeconds);
+	if (currentNote >= testLevel.Num())
+		return;
+	Note n = testLevel[currentNote];
+	double timeNote = n.msec + n.sec * 1000.0 + n.min * 60000.0;
+	double currentTimeMs = currentTime.GetTotalMilliseconds();
+	if (timeNote - nbMSecPerf < currentTimeMs && timeNote + nbMSecPerf > currentTimeMs && n.button == noteName)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "PERFECT");
+		currentNote++;
+	}
+	else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button == noteName)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "GOOD");
+		currentNote++;
+	}
+	else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button != noteName)
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Wrong button :/");
+	else if (timeNote - nbMSecGood > currentTimeMs && n.button == noteName)
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Too early :/");
+}
+
+void APataprideCharacter::UpButton()
+{
+	checkNoteTiming("Up");
+}
+
 void APataprideCharacter::MoveRight(float Value)
 {
 	// add movement in that direction
-	AddMovementInput(FVector(0.f,-1.f,0.f), Value);
+	if (Value > .0f)
+		AddMovementInput(FVector(0.f,-1.f,0.f), Value);
 }
 
 void APataprideCharacter::TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location)

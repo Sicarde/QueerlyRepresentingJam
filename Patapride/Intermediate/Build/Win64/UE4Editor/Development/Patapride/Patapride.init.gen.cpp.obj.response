@@ -23,9 +23,9 @@
 /wd4838
 /w44668
 /I "C:\Program Files\Epic Games\UE_4.18\Engine\Source"
-/I C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Source
-/I C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Inc\Patapride
-/I C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Source\Patapride
+/I "C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Source"
+/I "C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Inc\Patapride"
+/I "C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Source\Patapride"
 /I "C:\Program Files\Epic Games\UE_4.18\Engine\Source\Runtime\Core\Public"
 /I "C:\Program Files\Epic Games\UE_4.18\Engine\Source\Runtime\Core\Public\Internationalization"
 /I "C:\Program Files\Epic Games\UE_4.18\Engine\Source\Runtime\Core\Public\Async"
@@ -358,9 +358,9 @@
 /FI"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\SharedPCH.Engine.h"
 /Yu"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\SharedPCH.Engine.h"
 /Fp"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\SharedPCH.Engine.h.pch"
-"C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Inc\Patapride\Patapride.init.gen.cpp"
-/FI"C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Development\Patapride\Definitions.Patapride.h"
-/Fo"C:\Users\Sicarde\Documents\GitHub\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Development\Patapride\Patapride.init.gen.cpp.obj"
+"C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Inc\Patapride\Patapride.init.gen.cpp"
+/FI"C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Development\Patapride\Definitions.Patapride.h"
+/Fo"C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Development\Patapride\Patapride.init.gen.cpp.obj"
 /TP
 /GR-
 /W4

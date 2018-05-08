@@ -18,11 +18,14 @@ class APataprideCharacter : public ACharacter
 	/** Camera boom positioning the camera beside the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
-
+	int currentNote = 0;
 protected:
 
 	/** Called for side to side input */
 	void MoveRight(float Val);
+
+	/** Called when pressing up */
+	void UpButton();
 
 	/** Handle touch inputs. */
 	void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
@@ -34,7 +37,8 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	// End of APawn interface
 
-
+	virtual void Tick(float deltaTime) override;
+	void checkNoteTiming(FString const &noteName);
 public:
 	APataprideCharacter();
 

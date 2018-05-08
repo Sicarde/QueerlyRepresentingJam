@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<None Include="..\..\Patapride.uproject" />
+		<Filter Include="Source">
+			<UniqueIdentifier>{D7E2AED7-876F-4A18-A6D0-199512900B7B}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Source\Patapride.Target.cs">
+			<Filter>Source</Filter>
+		</None >
+		<None Include="..\..\Source\PataprideEditor.Target.cs">
+			<Filter>Source</Filter>
+		</None >
+		<Filter Include="Config">
+			<UniqueIdentifier>{C88AC511-C772-4516-96FF-FB47F9F6FA1E}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Config\DefaultEditor.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultEngine.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultGame.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultInput.ini">
+			<Filter>Config</Filter>
+		</None >
+		<Filter Include="Source\Patapride">
+			<UniqueIdentifier>{ADC8E124-0A7A-4482-B557-D17EB14675AE}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Source\Patapride\Patapride.Build.cs">
+			<Filter>Source\Patapride</Filter>
+		</None >
+		<ClCompile Include="..\..\Source\Patapride\Patapride.cpp">
+			<Filter>Source\Patapride</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\Patapride\Patapride.h">
+			<Filter>Source\Patapride</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\Patapride\PataprideCharacter.cpp">
+			<Filter>Source\Patapride</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\Patapride\PataprideCharacter.h">
+			<Filter>Source\Patapride</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\Patapride\PataprideGameMode.cpp">
+			<Filter>Source\Patapride</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\Patapride\PataprideGameMode.h">
+			<Filter>Source\Patapride</Filter>
+		</ClInclude >
+	</ItemGroup>
+</Project>

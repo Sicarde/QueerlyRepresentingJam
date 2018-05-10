@@ -72,3 +72,13 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+#Dunno who you are but there's too many to be good
+Patapride/Intermediate/Build/Win64/UE4Editor/Development/*
+*.log
+Patapride/Saved/Config/CrashReportClient/*
+*.pdb
+Patapride/Intermediate/AssetRegistryCache/*
+Patapride/Saved/Backup/*
+Patapride/Saved/Autosaves/*
+Patapride/Saved/Logs/*

@@ -6,9 +6,47 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Rythms.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+#include "PaperSprite.h"
+#include "Rythms.h"
 #include "Engine.h"
+#include "Runtime/Core/Public/Math/UnrealMathUtility.h"
+
+UPaperSprite* GetTriangleAsset() {
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("PaperSprite'/Game/TriangleSprite.TriangleSprite'"));
+	return Asset.Object;
+}
+UPaperSprite* GetSquareAsset() {
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("PaperSprite'/Game/SquareSprite.SquareSprite'"));
+	return Asset.Object;
+}
+
+UPaperSprite* GetCircleAsset() {
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("PaperSprite'/Game/CircleSprite.CircleSprite'"));
+	return Asset.Object;
+}
+
+UPaperSprite* GetCrossAsset() {
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("PaperSprite'/Game/CrossSprite.CrossSprite'"));
+	return Asset.Object;
+}
+
+UPaperSprite* GetColorAsset() {
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("PaperSprite'/Game/ButtonColor_Sprite_0.ButtonColor_Sprite_0'"));
+	return Asset.Object;
+}
+
+UPaperSprite* GetAssetFromNote(FString const &button) {
+	if (button == "Square") {
+		return GetSquareAsset();
+	} else if (button == "Triangle") {
+		return GetTriangleAsset();
+	} else if (button == "Circle") {
+		return GetCircleAsset();
+	} else {
+		return GetCrossAsset();
+	}
+}
 
 APataprideCharacter::APataprideCharacter()
 {
@@ -31,6 +69,26 @@ APataprideCharacter::APataprideCharacter()
 
 	// Create a camera and attach to boom
 	SideViewCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("SideViewCamera"));
+	SpriteTriangle = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteTriangle"));
+	SpriteTriangle->SetupAttachment(CameraBoom);
+	SpriteTriangle->SetSprite(GetTriangleAsset());
+	SpriteSquare = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteSquare"));
+	SpriteSquare->SetupAttachment(CameraBoom);
+	SpriteSquare->SetSprite(GetSquareAsset());
+	SpriteCircle = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteCircle"));
+	SpriteCircle->SetupAttachment(CameraBoom);
+	SpriteCircle->SetSprite(GetCircleAsset());
+	SpriteCross = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteCross"));
+	SpriteCross->SetupAttachment(CameraBoom);
+	SpriteCross->SetSprite(GetCrossAsset());
+	TriangleEnd = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("TriangleEnd"));
+	TriangleEnd->SetupAttachment(CameraBoom);
+	SquareEnd = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SquareEnd"));
+	SquareEnd->SetupAttachment(CameraBoom);
+	CrossEnd = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("CrossEnd"));
+	CrossEnd->SetupAttachment(CameraBoom);
+	CircleEnd = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("CircleEnd"));
+	CircleEnd->SetupAttachment(CameraBoom);
 	SideViewCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	SideViewCameraComponent->bUsePawnControlRotation = false; // We don't want the controller rotating the camera
 
@@ -43,11 +101,75 @@ APataprideCharacter::APataprideCharacter()
 	GetCharacterMovement()->GroundFriction = 3.f;
 	GetCharacterMovement()->MaxWalkSpeed = 600.f;
 	GetCharacterMovement()->MaxFlySpeed = 600.f;
+	GetColorAsset();
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	PrimaryActorTick.bCanEverTick = true;
+
 }
+
+void APataprideCharacter::GenerateMusicNotes()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Generate music"));
+	/*TArray<FVector> directions = { (SquareEnd->GetRelativeTransform().GetLocation() - SpriteSquare->GetRelativeTransform().GetLocation()).GetSafeNormal(),
+		(TriangleEnd->GetRelativeTransform().GetLocation() - SpriteTriangle->GetRelativeTransform().GetLocation()).GetSafeNormal(),
+		(CircleEnd->GetRelativeTransform().GetLocation() - SpriteCircle->GetRelativeTransform().GetLocation()).GetSafeNormal(),
+		(CrossEnd->GetRelativeTransform().GetLocation() - SpriteCross->GetRelativeTransform().GetLocation()).GetSafeNormal() }; //*/
+	TArray<FVector> directions = { (SpriteSquare->GetRelativeTransform().GetLocation() - SquareEnd->GetRelativeTransform().GetLocation()).GetSafeNormal(),
+		(SpriteTriangle->GetRelativeTransform().GetLocation() - TriangleEnd->GetRelativeTransform().GetLocation()).GetSafeNormal(),
+		(SpriteCircle->GetRelativeTransform().GetLocation() - CircleEnd->GetRelativeTransform().GetLocation()).GetSafeNormal(),
+		(SpriteCross->GetRelativeTransform().GetLocation() - CrossEnd->GetRelativeTransform().GetLocation()).GetSafeNormal() }; //*/
+	TArray<UPaperSpriteComponent*> sprites = { SquareEnd, TriangleEnd, CircleEnd, CrossEnd };
+	TArray<UPaperSpriteComponent*> spritesDetect = { SpriteSquare, SpriteTriangle, SpriteCircle, SpriteCross };
+
+	notes.Reserve(testLevel.Num());
+	int i = 0;
+	for (Note n : testLevel)
+	{
+		double timeNote = n.msec + n.sec * 1000.0 + n.min * 60000.0;
+		FString plop = "Note " + FString::SanitizeFloat(i);
+		i++;
+		int indexButton = 0;
+		buttonsNames.Find(n.button, indexButton);
+		if (indexButton < 0 || indexButton > buttonsNames.Num() - 1)
+			indexButton = 0;
+		UPaperSpriteComponent *noteSprite = NewObject<UPaperSpriteComponent>(this);
+		if (!noteSprite || !noteSprite->IsValidLowLevel())
+			return;
+		noteSprite->SetupAttachment(CameraBoom);
+		noteSprite->SetSprite(GetAssetFromNote(n.button));
+		noteSprite->SetRelativeTransform(spritesDetect[indexButton]->GetRelativeTransform());
+		noteSprite->SetRelativeLocation(spritesDetect[indexButton]->GetRelativeTransform().GetLocation() - directions[indexButton] * speedNotes * timeNote / 1000);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "current note transform " + noteSprite->GetRelativeTransform().ToString());
+		noteSprite->SetVisibility(true);
+		notes.Add(noteSprite);
+		if (true) //TODO stats colors
+		{
+			UPaperSpriteComponent *colorSprite = NewObject<UPaperSpriteComponent>(this);
+			if (!colorSprite || !colorSprite->IsValidLowLevel())
+				return;
+			colorSprite->SetupAttachment(noteSprite);
+			colorSprite->SetSprite(GetColorAsset());
+			colorSprite->SetRelativeLocation(FVector(1.0f, 1.0f, 0.0f));
+			//colorSprite->SetRelativeScale3D(FVector(1.3f, 1.3f, 1.3f));
+			colorSprite->SetSpriteColor(buttonFlagColor[FMath::RandRange(0, buttonFlagColor.Num() - 1)]);
+			colorSprite->SetVisibility(true);
+			colorSprite->RegisterComponent();
+		}
+		noteSprite->RegisterComponent();
+	}
+
+}
+
+void APataprideCharacter::BeginPlay() {
+	Super::BeginPlay();
+	GenerateMusicNotes();
+}
+
 void APataprideCharacter::Tick(float deltaTime) {
-	float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+	Super::Tick(deltaTime);
+	//float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+	realtimeSeconds += deltaTime;
 	FTimespan currentTime = FTimespan::FromSeconds(realtimeSeconds);
 	double currentTimeMs = currentTime.GetTotalMilliseconds();
 	if (currentNote >= testLevel.Num())
@@ -57,7 +179,29 @@ void APataprideCharacter::Tick(float deltaTime) {
 	if (timeNote + nbMSecGood < currentTimeMs)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Too late :/");
+		notes[currentNote]->SetVisibility(false);
+		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
+		if (color && color->IsValidLowLevel())
+			color->SetVisibility(false);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "deactivate ");
 		currentNote++;
+	}
+	UpdateNotesPositions(deltaTime);
+}
+
+void APataprideCharacter::UpdateNotesPositions(float deltaTime)
+{
+	FVector direction = (SpriteSquare->GetRelativeTransform().GetLocation() - SquareEnd->GetRelativeTransform().GetLocation()).GetSafeNormal();
+	for (UPaperSpriteComponent *sprite : notes)
+	{
+		if (sprite && sprite->IsValidLowLevel())
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "prev: " + sprite->GetRelativeTransform().GetLocation().ToString());
+			sprite->SetRelativeLocation(sprite->GetRelativeTransform().GetLocation() + direction * speedNotes * deltaTime);
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "result : " + sprite->GetRelativeTransform().GetLocation().ToString());
+		}
+		else
+			UE_LOG(LogTemp, Warning, TEXT("Bitch is not working"));
 	}
 }
 
@@ -83,15 +227,15 @@ void APataprideCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 		PlayerInputComponent->AddActionBinding(PressedButton);*/
 	}
 
-	PlayerInputComponent->BindTouch(IE_Pressed, this, &APataprideCharacter::TouchStarted);
-	PlayerInputComponent->BindTouch(IE_Released, this, &APataprideCharacter::TouchStopped);
+	//PlayerInputComponent->BindTouch(IE_Pressed, this, &APataprideCharacter::TouchStarted);
+	//PlayerInputComponent->BindTouch(IE_Released, this, &APataprideCharacter::TouchStopped);
 }
 
 void APataprideCharacter::checkNoteTiming(FString const &noteName)
 {
 	UE_LOG(LogTemp, Warning, TEXT("current note %d"), currentNote);
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("current note %d"), currentNote);
-	float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+	//float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 	FTimespan currentTime = FTimespan::FromSeconds(realtimeSeconds);
 	if (currentNote >= testLevel.Num())
 		return;
@@ -101,11 +245,19 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 	if (timeNote - nbMSecPerf < currentTimeMs && timeNote + nbMSecPerf > currentTimeMs && n.button == noteName)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "PERFECT");
+		notes[currentNote]->SetVisibility(false);
+		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
+		if (color && color->IsValidLowLevel())
+			color->SetVisibility(false);
 		currentNote++;
 	}
 	else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button == noteName)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "GOOD");
+		notes[currentNote]->SetVisibility(false);
+		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
+		if (color && color->IsValidLowLevel())
+			color->SetVisibility(false);
 		currentNote++;
 	}
 	else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button != noteName)
@@ -114,10 +266,6 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Too early :/");
 }
 
-void APataprideCharacter::UpButton()
-{
-	checkNoteTiming("Up");
-}
 
 void APataprideCharacter::MoveRight(float Value)
 {

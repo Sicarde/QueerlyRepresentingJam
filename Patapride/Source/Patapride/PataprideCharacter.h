@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "../Plugins/2D/Paper2D/Source/Paper2D/Classes/PaperSpriteComponent.h" 
 #include "PataprideCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -12,20 +13,35 @@ class APataprideCharacter : public ACharacter
 	GENERATED_BODY()
 
 	/** Side view camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* SideViewCameraComponent;
 
 	/** Camera boom positioning the camera beside the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class USpringArmComponent *CameraBoom;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPaperSpriteComponent* SpriteTriangle;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		UPaperSpriteComponent* SpriteSquare;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		UPaperSpriteComponent* SpriteCircle;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		UPaperSpriteComponent* SpriteCross;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		UPaperSpriteComponent* TriangleEnd;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		UPaperSpriteComponent* CircleEnd;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		UPaperSpriteComponent* CrossEnd;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		UPaperSpriteComponent* SquareEnd;
 	int currentNote = 0;
+	TArray<UPaperSpriteComponent*> notes;
+	double realtimeSeconds = 0;
 protected:
 
 	/** Called for side to side input */
 	void MoveRight(float Val);
-
-	/** Called when pressing up */
-	void UpButton();
 
 	/** Handle touch inputs. */
 	void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
@@ -38,6 +54,9 @@ protected:
 	// End of APawn interface
 
 	virtual void Tick(float deltaTime) override;
+	virtual void BeginPlay() override;
+	void GenerateMusicNotes();
+	void UpdateNotesPositions(float deltaTime);
 	void checkNoteTiming(FString const &noteName);
 public:
 	APataprideCharacter();

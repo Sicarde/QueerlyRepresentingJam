@@ -5,7 +5,9 @@
 //button names are in Edit->Project Settings->Input
 int nbMSecPerf = 800;
 int nbMSecGood = 1200;
+double speedNotes = 100; //m/s
 TArray<FString> buttonsNames = { "Square", "Triangle", "Circle", "Cross" };
+TArray<FColor> buttonFlagColor = { FColor::Blue, FColor::Purple, FColor::Yellow, FColor::White, FColor::Black };
 
 struct Note {
 	int min;

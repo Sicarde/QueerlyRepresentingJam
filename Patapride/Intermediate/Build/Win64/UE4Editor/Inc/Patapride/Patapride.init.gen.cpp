@@ -19,8 +19,8 @@ void EmptyLinkFunctionForGeneratedCodePatapride_init() {}
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/Patapride",
 				PKG_CompiledIn | 0x00000000,
-				0x9223AA4C,
-				0x5828A912,
+				0x6D54DDE1,
+				0x17EC99DB,
 				nullptr, 0,
 				METADATA_PARAMS(nullptr, 0)
 			};

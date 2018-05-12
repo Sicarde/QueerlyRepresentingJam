@@ -8,7 +8,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "PaperSprite.h"
-#include "Rythms.h"
 #include "Engine.h"
 #include "Runtime/Core/Public/Math/UnrealMathUtility.h"
 #include "Blueprint/UserWidget.h"
@@ -48,6 +47,24 @@ UPaperSprite* GetAssetFromNote(FString const &button) {
 		return GetCrossAsset();
 	}
 }
+
+/*UPaperSprite* GetFlagFromEnum(APataprideCharacter::E_Flag flag) {
+	//HOMO, LESBIAN, BI, TRANS, ASEXUAL
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Homo(TEXT("PaperSprite'/Game/GayFlag_Sprite.GayFlag_Sprite'"));
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Lesb(TEXT("PaperSprite'/Game/LesbianFlag_Sprite.LesbianFlag_Sprite'"));
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Bi(TEXT("PaperSprite'/Game/NBFlag_Sprite.NBFlag_Sprite'"));
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Trans(TEXT("PaperSprite'/Game/TransFlag_Sprite.TransFlag_Sprite'"));
+	static ConstructorHelpers::FObjectFinder<UPaperSprite> Ace(TEXT("PaperSprite'/Game/AceFlag_Sprite.AceFlag_Sprite'"));
+	if (flag == APataprideCharacter::HOMO)
+		return Homo.Object;
+	else if (flag == APataprideCharacter::LESBIAN)
+		return Lesb.Object;
+	else if (flag == APataprideCharacter::BI)
+		return Bi.Object;
+	else if (flag == APataprideCharacter::TRANS)
+		return Trans.Object;
+	return Ace.Object;
+}*/
 
 APataprideCharacter::APataprideCharacter()
 {
@@ -141,7 +158,6 @@ void APataprideCharacter::GenerateMusicNotes()
 		noteSprite->SetSprite(GetAssetFromNote(n.button));
 		noteSprite->SetRelativeTransform(spritesDetect[indexButton]->GetRelativeTransform());
 		noteSprite->SetRelativeLocation(spritesDetect[indexButton]->GetRelativeTransform().GetLocation() - directions[indexButton] * speedNotes * timeNote / 1000);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "current note transform " + noteSprite->GetRelativeTransform().ToString());
 		noteSprite->SetVisibility(true);
 		notes.Add(noteSprite);
 		if (FMath::RandRange(1, percentageColored) == 1)
@@ -163,6 +179,7 @@ void APataprideCharacter::GenerateMusicNotes()
 void APataprideCharacter::BeginPlay() {
 	Super::BeginPlay();
 	GenerateMusicNotes();
+	CheckPossibleFlags();
 }
 
 void APataprideCharacter::Tick(float deltaTime) {
@@ -194,7 +211,6 @@ void APataprideCharacter::UpdateNotesPositions(float deltaTime)
 	{
 		if (sprite && sprite->IsValidLowLevel())
 		{
-			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "prev: " + sprite->GetRelativeTransform().GetLocation().ToString());
 			sprite->SetRelativeLocation(sprite->GetRelativeTransform().GetLocation() + direction * speedNotes * deltaTime);
 			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "result : " + sprite->GetRelativeTransform().GetLocation().ToString());
 		}
@@ -203,14 +219,10 @@ void APataprideCharacter::UpdateNotesPositions(float deltaTime)
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Input
-
 void APataprideCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
-	// set up gameplay key bindings
 	//PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAxis("MoveRight", this, &APataprideCharacter::MoveRight);
+	//PlayerInputComponent->BindAxis("MoveRight", this, &APataprideCharacter::MoveRight);
 	for (FString name : buttonsNames)
 	{
 		FInputActionBinding PressedButton(*name, IE_Pressed);
@@ -224,7 +236,9 @@ void APataprideCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 		);
 		PlayerInputComponent->AddActionBinding(PressedButton);*/
 	}
-
+	PlayerInputComponent->BindAction("UseFlag", IE_Pressed, this, &APataprideCharacter::UseFlag);
+	PlayerInputComponent->BindAction("Right", IE_Pressed, this, &APataprideCharacter::Right);
+	PlayerInputComponent->BindAction("Left", IE_Pressed, this, &APataprideCharacter::Left);
 	//PlayerInputComponent->BindTouch(IE_Pressed, this, &APataprideCharacter::TouchStarted);
 	//PlayerInputComponent->BindTouch(IE_Released, this, &APataprideCharacter::TouchStopped);
 }
@@ -261,11 +275,46 @@ void APataprideCharacter::SetNextSpriteColor(FLinearColor const &col)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "NOBODY REALLY QUEEN");
 }
 
+void APataprideCharacter::CheckPossibleFlags()
+{
+	possibleFlags.Empty();
+	int i = 0;
+	for (TArray<FLinearColor> flagCol : colorsFlags)
+	{
+		bool missColor = false;
+		for (FLinearColor col : flagCol)
+		{
+			bool findCol = false;
+			for (FLinearColor *c : cols)
+			{
+				if (*c == col)
+				{
+					findCol = true;
+					break;
+				}
+			}
+			if (!findCol)
+			{
+				missColor = true;
+				break;
+			}
+		}
+		if (!missColor)
+			possibleFlags.Add(i);
+		++i;
+	}
+	if (currentFlag != 6 && currentFlag > possibleFlags.Num())
+		currentFlag = possibleFlags.Num() - 1;
+	if (currentFlag < 0)
+		currentFlag = 6;
+	if (possibleFlags.Num() > 0 && currentFlag == 6)
+		currentFlag = 0;
+}
+
 void APataprideCharacter::checkNoteTiming(FString const &noteName)
 {
-	UE_LOG(LogTemp, Warning, TEXT("current note %d"), currentNote);
+	//UE_LOG(LogTemp, Warning, TEXT("current note %d"), currentNote);
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("current note %d"), currentNote);
-	//float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 	FTimespan currentTime = FTimespan::FromSeconds(realtimeSeconds);
 	if (currentNote >= testLevel.Num())
 		return;
@@ -281,6 +330,7 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 		{
 			SetNextSpriteColor(((UPaperSpriteComponent*)color)->GetSpriteColor());
 			color->SetVisibility(false);
+			CheckPossibleFlags();
 		}
 		currentNote++;
 		currentStrike++;
@@ -294,6 +344,7 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 		{
 			SetNextSpriteColor(((UPaperSpriteComponent*)color)->GetSpriteColor());
 			color->SetVisibility(false);
+			CheckPossibleFlags();
 		}
 		currentNote++;
 		currentStrike++;
@@ -305,14 +356,50 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 }
 
 
-void APataprideCharacter::MoveRight(float Value)
+void APataprideCharacter::Left()
 {
-	// add movement in that direction
-	if (Value > .0f)
-		AddMovementInput(FVector(0.f,-1.f,0.f), Value);
+	if (currentFlag > 0 && currentFlag < possibleFlags.Num())
+		currentFlag--;
+	else if (currentFlag == 0)
+		currentFlag = possibleFlags.Num() - 1;
 }
 
-void APataprideCharacter::TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location)
+void APataprideCharacter::Right()
+{
+	if (currentFlag < possibleFlags.Num() - 1)
+		currentFlag++;
+	else if (currentFlag == possibleFlags.Num() - 1)
+		currentFlag = 0;
+}
+
+int APataprideCharacter::GetCurrentFlag()
+{
+	if (currentFlag < 0 || currentFlag >= possibleFlags.Num())
+		return 6;
+	return possibleFlags[currentFlag];
+}
+
+void APataprideCharacter::UseFlag()
+{
+	if (possibleFlags.Num() > 0 && currentFlag < possibleFlags.Num())
+	{
+		for (FLinearColor c : colorsFlags[currentFlag])
+		{
+			for (FLinearColor *col : cols)
+			{
+				if (*col == c)
+				{
+					*col = basicColor;
+					break;
+				}
+			}
+		}
+		//TODO flag effects
+		CheckPossibleFlags();
+	}
+}
+
+/*void APataprideCharacter::TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
 	// jump on any touch
 	Jump();
@@ -322,4 +409,11 @@ void APataprideCharacter::TouchStopped(const ETouchIndex::Type FingerIndex, cons
 {
 	StopJumping();
 }
+
+void APataprideCharacter::MoveRight(float Value)
+{
+// add movement in that direction
+if (Value > .0f)
+AddMovementInput(FVector(0.f,-1.f,0.f), Value);
+}*/
 

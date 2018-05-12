@@ -1,5 +1,6 @@
 #include "MyUserWidget.h"
 #include "Engine.h"
+#include "PataprideCharacter.h"
 
 FText UMyUserWidget::GetStreakText() const {
 	return StreakText;
@@ -14,8 +15,15 @@ FText UMyUserWidget::GetProtestersText() const {
 }
 
 void UMyUserWidget::SetProtestersText(const FText& NewDisplayText) {
-	StreakText = FText::FromString("Protesters : " + NewDisplayText.ToString());
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, StreakText.ToString());
+	ProtestersText = FText::FromString("Protesters : " + NewDisplayText.ToString());
+}
+
+UPaperSpriteComponent *UMyUserWidget::GetCurrentFlag() const {
+	return CurrentFlag;
+}
+
+void UMyUserWidget::SetCurrentFlag(UPaperSpriteComponent *NewFlag) {
+	CurrentFlag = NewFlag;
 }
 
 FLinearColor UMyUserWidget::GetColor1() const {
@@ -33,6 +41,15 @@ FLinearColor UMyUserWidget::GetColor4() const {
 FLinearColor UMyUserWidget::GetColor5() const {
 	return Color5F;
 }
+FLinearColor UMyUserWidget::GetColor6() const {
+	return Color6F;
+}
+FLinearColor UMyUserWidget::GetColor7() const {
+	return Color7F;
+}
+FLinearColor UMyUserWidget::GetColor8() const {
+	return Color8F;
+}
 
 void UMyUserWidget::SetColor1(const FLinearColor& NewColor) {
 	Color1F = NewColor;
@@ -48,4 +65,13 @@ void UMyUserWidget::SetColor4(const FLinearColor& NewColor) {
 }
 void UMyUserWidget::SetColor5(const FLinearColor& NewColor) {
 	Color5F = NewColor;
+}
+void UMyUserWidget::SetColor6(const FLinearColor& NewColor) {
+	Color6F = NewColor;
+}
+void UMyUserWidget::SetColor7(const FLinearColor& NewColor) {
+	Color7F = NewColor;
+}
+void UMyUserWidget::SetColor8(const FLinearColor& NewColor) {
+	Color8F = NewColor;
 }

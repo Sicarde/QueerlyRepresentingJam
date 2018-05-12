@@ -82,3 +82,5 @@ Patapride/Intermediate/AssetRegistryCache/*
 Patapride/Saved/Backup/*
 Patapride/Saved/Autosaves/*
 Patapride/Saved/Logs/*
+Patapride/Saved/Crashes/*
+Patapride/Intermediate/Build/*

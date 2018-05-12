@@ -17,15 +17,43 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 	PATAPRIDE_API UClass* Z_Construct_UClass_APataprideCharacter();
 	ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 	UPackage* Z_Construct_UPackage__Script_Patapride();
+	PATAPRIDE_API UFunction* Z_Construct_UFunction_APataprideCharacter_GetCurrentFlag();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FLinearColor();
-	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
-	UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 	PAPER2D_API UClass* Z_Construct_UClass_UPaperSpriteComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 // End Cross Module References
 	void APataprideCharacter::StaticRegisterNativesAPataprideCharacter()
 	{
+		UClass* Class = APataprideCharacter::StaticClass();
+		static const FNameNativePtrPair Funcs[] = {
+			{ "GetCurrentFlag", (Native)&APataprideCharacter::execGetCurrentFlag },
+		};
+		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, ARRAY_COUNT(Funcs));
+	}
+	UFunction* Z_Construct_UFunction_APataprideCharacter_GetCurrentFlag()
+	{
+		struct PataprideCharacter_eventGetCurrentFlag_Parms
+		{
+			int32 ReturnValue;
+		};
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_ReturnValue = { UE4CodeGen_Private::EPropertyClass::Int, "ReturnValue", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000580, 1, nullptr, STRUCT_OFFSET(PataprideCharacter_eventGetCurrentFlag_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+			static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[] = {
+				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_ReturnValue,
+			};
+#if WITH_METADATA
+			static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+				{ "Category", "Widgets" },
+				{ "ModuleRelativePath", "PataprideCharacter.h" },
+			};
+#endif
+			static const UE4CodeGen_Private::FFunctionParams FuncParams = { (UObject*(*)())Z_Construct_UClass_APataprideCharacter, "GetCurrentFlag", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x04020401, sizeof(PataprideCharacter_eventGetCurrentFlag_Parms), PropPointers, ARRAY_COUNT(PropPointers), 0, 0, METADATA_PARAMS(Function_MetaDataParams, ARRAY_COUNT(Function_MetaDataParams)) };
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, FuncParams);
+		}
+		return ReturnFunction;
 	}
 	UClass* Z_Construct_UClass_APataprideCharacter_NoRegister()
 	{
@@ -40,6 +68,9 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 				(UObject* (*)())Z_Construct_UClass_ACharacter,
 				(UObject* (*)())Z_Construct_UPackage__Script_Patapride,
 			};
+			static const FClassFunctionLinkInfo FuncInfo[] = {
+				{ &Z_Construct_UFunction_APataprideCharacter_GetCurrentFlag, "GetCurrentFlag" }, // 2624948761
+			};
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 				{ "HideCategories", "Navigation" },
@@ -47,6 +78,27 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
+#if WITH_METADATA
+			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col8_MetaData[] = {
+				{ "Category", "PataprideCharacter" },
+				{ "ModuleRelativePath", "PataprideCharacter.h" },
+			};
+#endif
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col8 = { UE4CodeGen_Private::EPropertyClass::Struct, "col8", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col8), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col8_MetaData, ARRAY_COUNT(NewProp_col8_MetaData)) };
+#if WITH_METADATA
+			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col7_MetaData[] = {
+				{ "Category", "PataprideCharacter" },
+				{ "ModuleRelativePath", "PataprideCharacter.h" },
+			};
+#endif
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col7 = { UE4CodeGen_Private::EPropertyClass::Struct, "col7", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col7), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col7_MetaData, ARRAY_COUNT(NewProp_col7_MetaData)) };
+#if WITH_METADATA
+			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col6_MetaData[] = {
+				{ "Category", "PataprideCharacter" },
+				{ "ModuleRelativePath", "PataprideCharacter.h" },
+			};
+#endif
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col6 = { UE4CodeGen_Private::EPropertyClass::Struct, "col6", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col6), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col6_MetaData, ARRAY_COUNT(NewProp_col6_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col5_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
@@ -83,13 +135,6 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 #endif
 			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col1 = { UE4CodeGen_Private::EPropertyClass::Struct, "col1", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col1), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col1_MetaData, ARRAY_COUNT(NewProp_col1_MetaData)) };
 #if WITH_METADATA
-			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_currentFlag_MetaData[] = {
-				{ "Category", "PataprideCharacter" },
-				{ "ModuleRelativePath", "PataprideCharacter.h" },
-			};
-#endif
-			static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_currentFlag = { UE4CodeGen_Private::EPropertyClass::Int, "currentFlag", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, currentFlag), METADATA_PARAMS(NewProp_currentFlag_MetaData, ARRAY_COUNT(NewProp_currentFlag_MetaData)) };
-#if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_protestersNumber_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
@@ -103,13 +148,6 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 			};
 #endif
 			static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_currentStrike = { UE4CodeGen_Private::EPropertyClass::Int, "currentStrike", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, currentStrike), METADATA_PARAMS(NewProp_currentStrike_MetaData, ARRAY_COUNT(NewProp_currentStrike_MetaData)) };
-#if WITH_METADATA
-			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_HUD_MetaData[] = {
-				{ "Category", "Widgets" },
-				{ "ModuleRelativePath", "PataprideCharacter.h" },
-			};
-#endif
-			static const UE4CodeGen_Private::FClassPropertyParams NewProp_HUD = { UE4CodeGen_Private::EPropertyClass::Class, "HUD", RF_Public|RF_Transient|RF_MarkAsNative, 0x0014000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, HUD), Z_Construct_UClass_UUserWidget_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(NewProp_HUD_MetaData, ARRAY_COUNT(NewProp_HUD_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SquareEnd_MetaData[] = {
 				{ "AllowPrivateAccess", "true" },
@@ -188,7 +226,6 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 				{ "Category", "Camera" },
 				{ "EditInline", "true" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
-				{ "ToolTip", "Camera boom positioning the camera beside the character" },
 			};
 #endif
 			static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CameraBoom = { UE4CodeGen_Private::EPropertyClass::Object, "CameraBoom", RF_Public|RF_Transient|RF_MarkAsNative, 0x004000000008000d, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, CameraBoom), Z_Construct_UClass_USpringArmComponent_NoRegister, METADATA_PARAMS(NewProp_CameraBoom_MetaData, ARRAY_COUNT(NewProp_CameraBoom_MetaData)) };
@@ -198,20 +235,20 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 				{ "Category", "Camera" },
 				{ "EditInline", "true" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
-				{ "ToolTip", "Side view camera" },
 			};
 #endif
 			static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SideViewCameraComponent = { UE4CodeGen_Private::EPropertyClass::Object, "SideViewCameraComponent", RF_Public|RF_Transient|RF_MarkAsNative, 0x004000000008000d, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, SideViewCameraComponent), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(NewProp_SideViewCameraComponent_MetaData, ARRAY_COUNT(NewProp_SideViewCameraComponent_MetaData)) };
 			static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[] = {
+				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_col8,
+				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_col7,
+				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_col6,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_col5,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_col4,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_col3,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_col2,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_col1,
-				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_currentFlag,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_protestersNumber,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_currentStrike,
-				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_HUD,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_SquareEnd,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_CrossEnd,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_CircleEnd,
@@ -230,7 +267,7 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 				&APataprideCharacter::StaticClass,
 				DependentSingletons, ARRAY_COUNT(DependentSingletons),
 				0x00800080u,
-				nullptr, 0,
+				FuncInfo, ARRAY_COUNT(FuncInfo),
 				PropPointers, ARRAY_COUNT(PropPointers),
 				"Game",
 				&StaticCppClassTypeInfo,
@@ -241,7 +278,7 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(APataprideCharacter, 3495683665);
+	IMPLEMENT_CLASS(APataprideCharacter, 1546962614);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_APataprideCharacter(Z_Construct_UClass_APataprideCharacter, &APataprideCharacter::StaticClass, TEXT("/Script/Patapride"), TEXT("APataprideCharacter"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(APataprideCharacter);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

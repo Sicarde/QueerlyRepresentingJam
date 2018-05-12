@@ -5,87 +5,92 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "../Plugins/2D/Paper2D/Source/Paper2D/Classes/PaperSpriteComponent.h" 
+#include "Rythms.h"
 #include "PataprideCharacter.generated.h"
 
-static FLinearColor basicColor = FLinearColor(FColor::Red);
+static FLinearColor basicColor = FLinearColor(0.0f, 0.0f, 0.0f, 0.0f);
 UCLASS(config=Game)
 class APataprideCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Side view camera */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* SideViewCameraComponent;
-
-	/** Camera boom positioning the camera beside the character */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent *CameraBoom;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UPaperSpriteComponent* SpriteTriangle;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		UPaperSpriteComponent* SpriteSquare;
+	UPaperSpriteComponent* SpriteSquare;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		UPaperSpriteComponent* SpriteCircle;
+	UPaperSpriteComponent* SpriteCircle;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		UPaperSpriteComponent* SpriteCross;
+	UPaperSpriteComponent* SpriteCross;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		UPaperSpriteComponent* TriangleEnd;
+	UPaperSpriteComponent* TriangleEnd;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		UPaperSpriteComponent* CircleEnd;
+	UPaperSpriteComponent* CircleEnd;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		UPaperSpriteComponent* CrossEnd;
+	UPaperSpriteComponent* CrossEnd;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		UPaperSpriteComponent* SquareEnd;
+	UPaperSpriteComponent* SquareEnd;
 
-	// Variable to hold the widget After Creating it.
-	UUserWidget* MyMainMenu;
 	int currentNote = 0;
 	TArray<UPaperSpriteComponent*> notes;
 	double realtimeSeconds = 0;
+
+	TArray<TArray<FLinearColor>> colorsFlags = { { FColor::Purple, FColor::Blue, FColor::Green, FColor::Yellow, FColor::Red }, //HOMO
+	{ FColor::Purple, FColor::White, PINK }, //LESBIAN
+	{ FColor::Blue, FColor::Purple, PINK }, //BI
+	{ FColor::Blue, FColor::White, PINK }, //TRANS
+	{ FColor::Purple, FColor::White, FColor::Silver } }; //ASEXUAL
+	TArray<int> possibleFlags;
+	int currentFlag = 6;
 protected:
+	//void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
+	//void TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location);
+	//void MoveRight(float Val);
 
-	/** Called for side to side input */
-	void MoveRight(float Val);
+	void Right();
+	void Left();
+	void UseFlag();
 
-	/** Handle touch inputs. */
-	void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
-
-	/** Handle touch stop event. */
-	void TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location);
-
-	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-	// End of APawn interface
-
 	virtual void Tick(float deltaTime) override;
 	virtual void BeginPlay() override;
+
 	void GenerateMusicNotes();
 	void UpdateNotesPositions(float deltaTime);
 	void checkNoteTiming(FString const &noteName);
 	void SetNextSpriteColor(FLinearColor const &col);
+	void CheckPossibleFlags();
 public:
 	APataprideCharacter();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
-		TSubclassOf<class UUserWidget> HUD;
+	typedef enum { HOMO, LESBIAN, BI, TRANS, ASEXUAL } E_Flag;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		int currentStrike = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		int protestersNumber = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		int currentFlag = 0;
+		FLinearColor col1 = FColor::Purple;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		FLinearColor col1 = basicColor;
+		FLinearColor col2 = FColor::Blue;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		FLinearColor col2 = basicColor;
+		FLinearColor col3 = FColor::Green;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		FLinearColor col3 = basicColor;
+		FLinearColor col4 = FColor::Yellow;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		FLinearColor col4 = basicColor;
+		FLinearColor col5 = FColor::Red;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		FLinearColor col5 = basicColor;
-
-	/** Returns SideViewCameraComponent subobject **/
+		FLinearColor col6 = PINK;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FLinearColor col7 = FColor::White;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FLinearColor col8 = FColor::Silver;
+	UFUNCTION(BlueprintCallable, Category = "Widgets")
+		int GetCurrentFlag();
+	TArray<FLinearColor*> cols = { &col1, &col2, &col3, &col4, &col5, &col6, &col7, &col8 };
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
-	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 };

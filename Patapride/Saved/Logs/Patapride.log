@@ -6897,3 +6897,81 @@ LogInit: Object subsystem initialized
 [2018.05.12-18.46.43:681][235]LogBlueprintUserMessages: Late PlayInEditor Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
 [2018.05.12-18.47.12:785][717]LogBlueprintUserMessages: Early EndPlayMap Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
 [2018.05.12-18.47.12:834][717]LogBlueprintUserMessages: Late EndPlayMap Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
+[2018.05.12-19.07.49:464][482]LogFactory: FactoryCreateFile: Texture with ReimportTextureFactory (0 0 C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\3DModels\BiFlag.png)
+[2018.05.12-19.07.49:510][482]LogTexture: Display: Building textures: BiFlag (AutoDXT, 1024X1024)
+[2018.05.12-19.08.04:295][721]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/BiFlag_Sprite" FILE="../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/BiFlag_Sprite.uasset" SILENT=true
+[2018.05.12-19.08.04:308][721]LogSavePackage: Save=10.03ms
+[2018.05.12-19.08.04:309][721]LogSavePackage: Moving '../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Saved/BiFlag_SpriteE6E3B5034190A98910E047AC355D0F52.tmp' to '../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/BiFlag_Sprite.uasset'
+[2018.05.12-19.08.04:318][721]LogSavePackage: Display: Finished SavePackage ../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/BiFlag_Sprite.uasset
+[2018.05.12-19.08.12:088][518]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/BiFlag" FILE="../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/BiFlag.uasset" SILENT=true
+[2018.05.12-19.08.12:132][518]LogSavePackage: Save=40.64ms
+[2018.05.12-19.08.12:132][518]LogSavePackage: Moving '../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Saved/BiFlagCB4EAE864B2EC72AF7D4949CB88146A6.tmp' to '../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/BiFlag.uasset'
+[2018.05.12-19.08.12:136][518]LogSavePackage: Display: Finished SavePackage ../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/BiFlag.uasset
+[2018.05.12-19.08.32:986][930]BlueprintLog: New page: Compile HUD
+[2018.05.12-19.08.33:017][930]LogProperty: Warning: Serialized Class /Script/UMG.TextBlock for a property of Class /Script/Paper2D.PaperSpriteComponent. Reference will be nullptred.
+    Property = ObjectProperty /Script/Patapride.MyUserWidget:CurrentFlag
+    Item = TextBlock /Engine/Transient.World_2:REINST_HUD_C_0.WidgetTree_134.Currentflag
+[2018.05.12-19.08.33:724][966]LogSavePackage: Save=78.11ms
+[2018.05.12-19.08.33:724][966]LogSavePackage: Moving '../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Saved/HUDDDDE7F484F2CADFA6D58A49E1B7AD65D.tmp' to '../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/SideScrollerCPP/Blueprints/HUD.uasset'
+[2018.05.12-19.08.33:730][966]LogSavePackage: Display: Finished SavePackage ../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/SideScrollerCPP/Blueprints/HUD.uasset
+[2018.05.12-19.09.34:623][549]LogVSAccessor: Warning: Couldn't access Visual Studio
+[2018.05.12-19.09.34:645][549]Candidate modules for hot reload:
+[2018.05.12-19.09.34:645][549]  Patapride
+[2018.05.12-19.09.34:645][549]Launching UnrealBuildTool... [C:/Program Files/Epic Games/UE_4.18/Engine/Binaries/DotNET/UnrealBuildTool.exe Patapride -ModuleWithSuffix Patapride 7997 Win64 Development -editorrecompile -canskiplink "C:/Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Patapride.uproject" ]
+[2018.05.12-19.09.34:647][549]Warning: Starting HotReload took  0.0s.
+[2018.05.12-19.09.50:615][552]CompilerResultsLog: New page: Compilation - May 12, 2018, 11:09:50 PM
+[2018.05.12-19.09.50:615][552]CompilerResultsLog: Using 'git status' to determine working set for adaptive non-unity build.
+[2018.05.12-19.09.50:615][552]CompilerResultsLog: Compiling game modules for hot reload
+[2018.05.12-19.09.50:616][552]CompilerResultsLog: Performing 3 actions (12 in parallel)
+[2018.05.12-19.09.50:616][552]CompilerResultsLog: PataprideCharacter.cpp
+[2018.05.12-19.09.50:616][552]CompilerResultsLog: [2/3] Link UE4Editor-Patapride-7997.dll
+[2018.05.12-19.09.50:616][552]CompilerResultsLog: [3/3] Link UE4Editor-Patapride-7997.lib
+[2018.05.12-19.09.50:616][552]CompilerResultsLog:    Creating library C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Patapride-7997.lib and object C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Patapride-7997.exp
+[2018.05.12-19.09.50:616][552]CompilerResultsLog:    Creating library C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Patapride-7997.suppressed.lib and object C:\Users\makoto\Documents\Unreal Projects\QueerlyRepresentingJam\Patapride\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Patapride-7997.suppressed.exp
+[2018.05.12-19.09.50:616][552]CompilerResultsLog: Total build time: 15.75 seconds (Local executor: 14.56 seconds)
+[2018.05.12-19.09.50:616][552]LogMainFrame: MainFrame: Module compiling took 15.993 seconds
+[2018.05.12-19.09.50:785][552]LogContentBrowser: Native class hierarchy updated for 'Patapride' in 0.0011 seconds. Added 4 classes and 2 folders.
+[2018.05.12-19.09.50:788][552]Display: HotReload successful (23 functions remapped  0 scriptstructs remapped)
+[2018.05.12-19.09.51:172][552]LogContentBrowser: Native class hierarchy populated in 0.0122 seconds. Added 2371 classes and 528 folders.
+[2018.05.12-19.09.51:172][552]Display: HotReload took 16.6s.
+[2018.05.12-19.10.22:091][ 61]LogSavePackage: Save=70.33ms
+[2018.05.12-19.10.22:092][ 61]LogSavePackage: Moving '../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Saved/HUD2795D259473FCD3E04D6A688E13834B8.tmp' to '../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/SideScrollerCPP/Blueprints/HUD.uasset'
+[2018.05.12-19.10.22:094][ 61]LogSavePackage: Display: Finished SavePackage ../../../../../../Users/makoto/Documents/Unreal Projects/QueerlyRepresentingJam/Patapride/Content/SideScrollerCPP/Blueprints/HUD.uasset
+[2018.05.12-19.10.23:937][269]LogTemp: Repeating last play command: Selected Viewport
+[2018.05.12-19.10.23:968][269]LogBlueprintUserMessages: Early PlayInEditor Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
+[2018.05.12-19.10.23:968][269]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2018.05.12-19.10.23:968][269]PIE: New page: PIE session: SideScrollerExampleMap (May 12, 2018, 11:10:23 PM)
+[2018.05.12-19.10.23:968][269]LogPlayLevel: Creating play world package: /Game/SideScrollerCPP/Maps/UEDPIE_0_SideScrollerExampleMap
+[2018.05.12-19.10.23:978][269]LogPlayLevel: PIE: StaticDuplicateObject took: (0.009767s)
+[2018.05.12-19.10.23:979][269]LogAIModule: Creating AISystem for world SideScrollerExampleMap
+[2018.05.12-19.10.23:980][269]LogPlayLevel: PIE: World Init took: (0.001198s)
+[2018.05.12-19.10.23:980][269]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap to /Game/SideScrollerCPP/Maps/UEDPIE_0_SideScrollerExampleMap.SideScrollerExampleMap (0.011960s)
+[2018.05.12-19.10.24:065][269]LogInit: XAudio2 using 'Speakers (Realtek High Definition Audio)' : 2 channels at 48 kHz using 32 bits per sample (channel mask 0x3)
+[2018.05.12-19.10.24:080][269]LogInit: FAudioDevice initialized.
+[2018.05.12-19.10.24:120][269]LogLoad: Game class is 'PataprideGameMode'
+[2018.05.12-19.10.24:124][269]LogWorld: Bringing World /Game/SideScrollerCPP/Maps/UEDPIE_0_SideScrollerExampleMap.SideScrollerExampleMap up for play (max tick rate 0) at 2018.05.12-21.10.24
+[2018.05.12-19.10.24:124][269]LogWorld: Bringing up level for play took: 0.003336
+[2018.05.12-19.10.24:126][269]LogTemp: Warning: Generate music
+[2018.05.12-19.10.24:128][269]PIE: Play in editor start time for /Game/SideScrollerCPP/Maps/UEDPIE_0_SideScrollerExampleMap 0.433
+[2018.05.12-19.10.24:129][269]LogBlueprintUserMessages: Late PlayInEditor Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
+[2018.05.12-19.10.43:485][588]LogBlueprintUserMessages: Early EndPlayMap Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
+[2018.05.12-19.10.43:525][588]LogBlueprintUserMessages: Late EndPlayMap Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
+[2018.05.12-19.11.21:442][ 60]LogTemp: Repeating last play command: Selected Viewport
+[2018.05.12-19.11.21:467][ 60]LogBlueprintUserMessages: Early PlayInEditor Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
+[2018.05.12-19.11.21:467][ 60]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2018.05.12-19.11.21:468][ 60]PIE: New page: PIE session: SideScrollerExampleMap (May 12, 2018, 11:11:21 PM)
+[2018.05.12-19.11.21:468][ 60]LogPlayLevel: Creating play world package: /Game/SideScrollerCPP/Maps/UEDPIE_0_SideScrollerExampleMap
+[2018.05.12-19.11.21:475][ 60]LogPlayLevel: PIE: StaticDuplicateObject took: (0.006846s)
+[2018.05.12-19.11.21:476][ 60]LogAIModule: Creating AISystem for world SideScrollerExampleMap
+[2018.05.12-19.11.21:477][ 60]LogPlayLevel: PIE: World Init took: (0.001512s)
+[2018.05.12-19.11.21:477][ 60]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap to /Game/SideScrollerCPP/Maps/UEDPIE_0_SideScrollerExampleMap.SideScrollerExampleMap (0.009049s)
+[2018.05.12-19.11.21:525][ 60]LogInit: XAudio2 using 'Speakers (Realtek High Definition Audio)' : 2 channels at 48 kHz using 32 bits per sample (channel mask 0x3)
+[2018.05.12-19.11.21:537][ 60]LogInit: FAudioDevice initialized.
+[2018.05.12-19.11.21:570][ 60]LogLoad: Game class is 'PataprideGameMode'
+[2018.05.12-19.11.21:572][ 60]LogWorld: Bringing World /Game/SideScrollerCPP/Maps/UEDPIE_0_SideScrollerExampleMap.SideScrollerExampleMap up for play (max tick rate 0) at 2018.05.12-21.11.21
+[2018.05.12-19.11.21:573][ 60]LogWorld: Bringing up level for play took: 0.002225
+[2018.05.12-19.11.21:574][ 60]LogTemp: Warning: Generate music
+[2018.05.12-19.11.21:577][ 60]PIE: Play in editor start time for /Game/SideScrollerCPP/Maps/UEDPIE_0_SideScrollerExampleMap -0.119
+[2018.05.12-19.11.21:577][ 60]LogBlueprintUserMessages: Late PlayInEditor Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
+[2018.05.12-19.11.25:092][478]LogBlueprintUserMessages: Early EndPlayMap Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'
+[2018.05.12-19.11.25:127][478]LogBlueprintUserMessages: Late EndPlayMap Detection: Level '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel' has LevelScriptBlueprint '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap' with GeneratedClass '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap_C' with ClassGeneratedBy '/Game/SideScrollerCPP/Maps/SideScrollerExampleMap.SideScrollerExampleMap:PersistentLevel.SideScrollerExampleMap'

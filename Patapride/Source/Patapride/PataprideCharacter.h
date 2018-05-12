@@ -7,6 +7,7 @@
 #include "../Plugins/2D/Paper2D/Source/Paper2D/Classes/PaperSpriteComponent.h" 
 #include "PataprideCharacter.generated.h"
 
+static FLinearColor basicColor = FLinearColor(FColor::Red);
 UCLASS(config=Game)
 class APataprideCharacter : public ACharacter
 {
@@ -35,6 +36,9 @@ class APataprideCharacter : public ACharacter
 		UPaperSpriteComponent* CrossEnd;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		UPaperSpriteComponent* SquareEnd;
+
+	// Variable to hold the widget After Creating it.
+	UUserWidget* MyMainMenu;
 	int currentNote = 0;
 	TArray<UPaperSpriteComponent*> notes;
 	double realtimeSeconds = 0;
@@ -58,8 +62,27 @@ protected:
 	void GenerateMusicNotes();
 	void UpdateNotesPositions(float deltaTime);
 	void checkNoteTiming(FString const &noteName);
+	void SetNextSpriteColor(FLinearColor const &col);
 public:
 	APataprideCharacter();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
+		TSubclassOf<class UUserWidget> HUD;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		int currentStrike = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		int protestersNumber = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		int currentFlag = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FLinearColor col1 = basicColor;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FLinearColor col2 = basicColor;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FLinearColor col3 = basicColor;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FLinearColor col4 = basicColor;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FLinearColor col5 = basicColor;
 
 	/** Returns SideViewCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }

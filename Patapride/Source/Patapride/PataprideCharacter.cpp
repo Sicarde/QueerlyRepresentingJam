@@ -11,6 +11,7 @@
 #include "Rythms.h"
 #include "Engine.h"
 #include "Runtime/Core/Public/Math/UnrealMathUtility.h"
+#include "Blueprint/UserWidget.h"
 
 UPaperSprite* GetTriangleAsset() {
 	static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("PaperSprite'/Game/TriangleSprite.TriangleSprite'"));
@@ -143,7 +144,7 @@ void APataprideCharacter::GenerateMusicNotes()
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "current note transform " + noteSprite->GetRelativeTransform().ToString());
 		noteSprite->SetVisibility(true);
 		notes.Add(noteSprite);
-		if (true) //TODO stats colors
+		if (FMath::RandRange(1, percentageColored) == 1)
 		{
 			UPaperSpriteComponent *colorSprite = NewObject<UPaperSpriteComponent>(this);
 			if (!colorSprite || !colorSprite->IsValidLowLevel())
@@ -151,14 +152,12 @@ void APataprideCharacter::GenerateMusicNotes()
 			colorSprite->SetupAttachment(noteSprite);
 			colorSprite->SetSprite(GetColorAsset());
 			colorSprite->SetRelativeLocation(FVector(1.0f, 1.0f, 0.0f));
-			//colorSprite->SetRelativeScale3D(FVector(1.3f, 1.3f, 1.3f));
 			colorSprite->SetSpriteColor(buttonFlagColor[FMath::RandRange(0, buttonFlagColor.Num() - 1)]);
 			colorSprite->SetVisibility(true);
 			colorSprite->RegisterComponent();
 		}
 		noteSprite->RegisterComponent();
 	}
-
 }
 
 void APataprideCharacter::BeginPlay() {
@@ -178,12 +177,11 @@ void APataprideCharacter::Tick(float deltaTime) {
 	double timeNote = n.msec + n.sec * 1000.0 + n.min * 60000.0;
 	if (timeNote + nbMSecGood < currentTimeMs)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Too late :/");
-		notes[currentNote]->SetVisibility(false);
+		notes[currentNote]->SetVisibility(false); //Fail
+		currentStrike = 0;
 		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
 		if (color && color->IsValidLowLevel())
 			color->SetVisibility(false);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "deactivate ");
 		currentNote++;
 	}
 	UpdateNotesPositions(deltaTime);
@@ -231,6 +229,38 @@ void APataprideCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	//PlayerInputComponent->BindTouch(IE_Released, this, &APataprideCharacter::TouchStopped);
 }
 
+void APataprideCharacter::SetNextSpriteColor(FLinearColor const &col)
+{
+	if (col1 == basicColor)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "SET");
+		col1 = col;
+	}
+	else if (col1 == col)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "ALREADY THERE");
+		return;
+	}
+	else if (col2 == basicColor)
+		col2 = col;
+	else if (col2 == col)
+		return;
+	else if (col3 == basicColor)
+		col3 = col;
+	else if (col3 == col)
+		return;
+	else if (col4 == basicColor)
+		col4 = col;
+	else if (col4 == col)
+		return;
+	else if (col5 == basicColor)
+		col5 = col;
+	else if (col5 == col)
+		return;
+	else
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "NOBODY REALLY QUEEN");
+}
+
 void APataprideCharacter::checkNoteTiming(FString const &noteName)
 {
 	UE_LOG(LogTemp, Warning, TEXT("current note %d"), currentNote);
@@ -248,8 +278,12 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 		notes[currentNote]->SetVisibility(false);
 		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
 		if (color && color->IsValidLowLevel())
+		{
+			SetNextSpriteColor(((UPaperSpriteComponent*)color)->GetSpriteColor());
 			color->SetVisibility(false);
+		}
 		currentNote++;
+		currentStrike++;
 	}
 	else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button == noteName)
 	{
@@ -257,8 +291,12 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 		notes[currentNote]->SetVisibility(false);
 		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
 		if (color && color->IsValidLowLevel())
+		{
+			SetNextSpriteColor(((UPaperSpriteComponent*)color)->GetSpriteColor());
 			color->SetVisibility(false);
+		}
 		currentNote++;
+		currentStrike++;
 	}
 	else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button != noteName)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Wrong button :/");

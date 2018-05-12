@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<None Include="..\..\Patapride.uproject" />
 		<Filter Include="Source">
-			<UniqueIdentifier>{EF890877-106D-46AC-B8A6-96DE0027C51F}</UniqueIdentifier>
+			<UniqueIdentifier>{B996BDA5-76A1-4782-A01D-F871E681C74E}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\Patapride.Target.cs">
 			<Filter>Source</Filter>
@@ -13,7 +13,7 @@
 			<Filter>Source</Filter>
 		</None >
 		<Filter Include="Config">
-			<UniqueIdentifier>{C213CBA3-E04D-4EC1-AE89-DE1D084AEB4D}</UniqueIdentifier>
+			<UniqueIdentifier>{2EB3509E-40A0-48B4-B553-837740598EAA}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Config\DefaultEditor.ini">
 			<Filter>Config</Filter>
@@ -31,8 +31,14 @@
 			<Filter>Config</Filter>
 		</None >
 		<Filter Include="Source\Patapride">
-			<UniqueIdentifier>{D48701F3-83AE-4EE6-9830-DE9313696BBF}</UniqueIdentifier>
+			<UniqueIdentifier>{1CC1FF4D-5E26-4D72-ADDC-8647955C4F05}</UniqueIdentifier>
 		</Filter>
+		<ClCompile Include="..\..\Source\Patapride\MyUserWidget.cpp">
+			<Filter>Source\Patapride</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\Patapride\MyUserWidget.h">
+			<Filter>Source\Patapride</Filter>
+		</ClInclude >
 		<None Include="..\..\Source\Patapride\Patapride.Build.cs">
 			<Filter>Source\Patapride</Filter>
 		</None >

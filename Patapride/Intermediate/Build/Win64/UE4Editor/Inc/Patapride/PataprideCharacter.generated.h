@@ -13,9 +13,9 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define PATAPRIDE_PataprideCharacter_generated_h
 
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_RPC_WRAPPERS
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_RPC_WRAPPERS_NO_PURE_DECLS
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_INCLASS_NO_PURE_DECLS \
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_RPC_WRAPPERS
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_RPC_WRAPPERS_NO_PURE_DECLS
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAPataprideCharacter(); \
 	friend PATAPRIDE_API class UClass* Z_Construct_UClass_APataprideCharacter(); \
@@ -25,7 +25,7 @@ public: \
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_INCLASS \
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_INCLASS \
 private: \
 	static void StaticRegisterNativesAPataprideCharacter(); \
 	friend PATAPRIDE_API class UClass* Z_Construct_UClass_APataprideCharacter(); \
@@ -35,7 +35,7 @@ public: \
 	enum {IsIntrinsic=COMPILED_IN_INTRINSIC};
 
 
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_STANDARD_CONSTRUCTORS \
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API APataprideCharacter(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(APataprideCharacter) \
@@ -48,7 +48,7 @@ private: \
 public:
 
 
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_ENHANCED_CONSTRUCTORS \
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API APataprideCharacter(APataprideCharacter&&); \
@@ -59,7 +59,7 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(APataprideCharacter); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(APataprideCharacter)
 
 
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_PRIVATE_PROPERTY_OFFSET \
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__SideViewCameraComponent() { return STRUCT_OFFSET(APataprideCharacter, SideViewCameraComponent); } \
 	FORCEINLINE static uint32 __PPO__CameraBoom() { return STRUCT_OFFSET(APataprideCharacter, CameraBoom); } \
 	FORCEINLINE static uint32 __PPO__SpriteTriangle() { return STRUCT_OFFSET(APataprideCharacter, SpriteTriangle); } \
@@ -72,25 +72,25 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(APataprideCharacter); \
 	FORCEINLINE static uint32 __PPO__SquareEnd() { return STRUCT_OFFSET(APataprideCharacter, SquareEnd); }
 
 
-#define Patapride_Source_Patapride_PataprideCharacter_h_10_PROLOG
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_GENERATED_BODY_LEGACY \
+#define Patapride_Source_Patapride_PataprideCharacter_h_11_PROLOG
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Patapride_Source_Patapride_PataprideCharacter_h_13_PRIVATE_PROPERTY_OFFSET \
-	Patapride_Source_Patapride_PataprideCharacter_h_13_RPC_WRAPPERS \
-	Patapride_Source_Patapride_PataprideCharacter_h_13_INCLASS \
-	Patapride_Source_Patapride_PataprideCharacter_h_13_STANDARD_CONSTRUCTORS \
+	Patapride_Source_Patapride_PataprideCharacter_h_14_PRIVATE_PROPERTY_OFFSET \
+	Patapride_Source_Patapride_PataprideCharacter_h_14_RPC_WRAPPERS \
+	Patapride_Source_Patapride_PataprideCharacter_h_14_INCLASS \
+	Patapride_Source_Patapride_PataprideCharacter_h_14_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Patapride_Source_Patapride_PataprideCharacter_h_13_GENERATED_BODY \
+#define Patapride_Source_Patapride_PataprideCharacter_h_14_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Patapride_Source_Patapride_PataprideCharacter_h_13_PRIVATE_PROPERTY_OFFSET \
-	Patapride_Source_Patapride_PataprideCharacter_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
-	Patapride_Source_Patapride_PataprideCharacter_h_13_INCLASS_NO_PURE_DECLS \
-	Patapride_Source_Patapride_PataprideCharacter_h_13_ENHANCED_CONSTRUCTORS \
+	Patapride_Source_Patapride_PataprideCharacter_h_14_PRIVATE_PROPERTY_OFFSET \
+	Patapride_Source_Patapride_PataprideCharacter_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	Patapride_Source_Patapride_PataprideCharacter_h_14_INCLASS_NO_PURE_DECLS \
+	Patapride_Source_Patapride_PataprideCharacter_h_14_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

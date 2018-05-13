@@ -84,70 +84,70 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col8 = { UE4CodeGen_Private::EPropertyClass::Struct, "col8", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col8), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col8_MetaData, ARRAY_COUNT(NewProp_col8_MetaData)) };
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col8 = { UE4CodeGen_Private::EPropertyClass::Struct, "col8", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col8), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col8_MetaData, ARRAY_COUNT(NewProp_col8_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col7_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col7 = { UE4CodeGen_Private::EPropertyClass::Struct, "col7", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col7), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col7_MetaData, ARRAY_COUNT(NewProp_col7_MetaData)) };
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col7 = { UE4CodeGen_Private::EPropertyClass::Struct, "col7", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col7), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col7_MetaData, ARRAY_COUNT(NewProp_col7_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col6_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col6 = { UE4CodeGen_Private::EPropertyClass::Struct, "col6", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col6), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col6_MetaData, ARRAY_COUNT(NewProp_col6_MetaData)) };
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col6 = { UE4CodeGen_Private::EPropertyClass::Struct, "col6", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col6), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col6_MetaData, ARRAY_COUNT(NewProp_col6_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col5_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col5 = { UE4CodeGen_Private::EPropertyClass::Struct, "col5", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col5), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col5_MetaData, ARRAY_COUNT(NewProp_col5_MetaData)) };
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col5 = { UE4CodeGen_Private::EPropertyClass::Struct, "col5", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col5), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col5_MetaData, ARRAY_COUNT(NewProp_col5_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col4_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col4 = { UE4CodeGen_Private::EPropertyClass::Struct, "col4", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col4), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col4_MetaData, ARRAY_COUNT(NewProp_col4_MetaData)) };
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col4 = { UE4CodeGen_Private::EPropertyClass::Struct, "col4", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col4), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col4_MetaData, ARRAY_COUNT(NewProp_col4_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col3_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col3 = { UE4CodeGen_Private::EPropertyClass::Struct, "col3", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col3), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col3_MetaData, ARRAY_COUNT(NewProp_col3_MetaData)) };
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col3 = { UE4CodeGen_Private::EPropertyClass::Struct, "col3", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col3), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col3_MetaData, ARRAY_COUNT(NewProp_col3_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col2_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col2 = { UE4CodeGen_Private::EPropertyClass::Struct, "col2", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col2), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col2_MetaData, ARRAY_COUNT(NewProp_col2_MetaData)) };
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col2 = { UE4CodeGen_Private::EPropertyClass::Struct, "col2", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col2), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col2_MetaData, ARRAY_COUNT(NewProp_col2_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_col1_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col1 = { UE4CodeGen_Private::EPropertyClass::Struct, "col1", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col1), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col1_MetaData, ARRAY_COUNT(NewProp_col1_MetaData)) };
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_col1 = { UE4CodeGen_Private::EPropertyClass::Struct, "col1", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, col1), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(NewProp_col1_MetaData, ARRAY_COUNT(NewProp_col1_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_protestersNumber_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_protestersNumber = { UE4CodeGen_Private::EPropertyClass::Int, "protestersNumber", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, protestersNumber), METADATA_PARAMS(NewProp_protestersNumber_MetaData, ARRAY_COUNT(NewProp_protestersNumber_MetaData)) };
+			static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_protestersNumber = { UE4CodeGen_Private::EPropertyClass::Int, "protestersNumber", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, protestersNumber), METADATA_PARAMS(NewProp_protestersNumber_MetaData, ARRAY_COUNT(NewProp_protestersNumber_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_currentStrike_MetaData[] = {
 				{ "Category", "PataprideCharacter" },
 				{ "ModuleRelativePath", "PataprideCharacter.h" },
 			};
 #endif
-			static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_currentStrike = { UE4CodeGen_Private::EPropertyClass::Int, "currentStrike", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000015, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, currentStrike), METADATA_PARAMS(NewProp_currentStrike_MetaData, ARRAY_COUNT(NewProp_currentStrike_MetaData)) };
+			static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_currentStrike = { UE4CodeGen_Private::EPropertyClass::Int, "currentStrike", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000005, 1, nullptr, STRUCT_OFFSET(APataprideCharacter, currentStrike), METADATA_PARAMS(NewProp_currentStrike_MetaData, ARRAY_COUNT(NewProp_currentStrike_MetaData)) };
 #if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SquareEnd_MetaData[] = {
 				{ "AllowPrivateAccess", "true" },
@@ -278,7 +278,7 @@ void EmptyLinkFunctionForGeneratedCodePataprideCharacter() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(APataprideCharacter, 1546962614);
+	IMPLEMENT_CLASS(APataprideCharacter, 379810394);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_APataprideCharacter(Z_Construct_UClass_APataprideCharacter, &APataprideCharacter::StaticClass, TEXT("/Script/Patapride"), TEXT("APataprideCharacter"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(APataprideCharacter);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

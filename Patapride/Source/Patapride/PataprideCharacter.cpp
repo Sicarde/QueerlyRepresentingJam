@@ -37,6 +37,44 @@ UPaperSprite* GetColorAsset() {
 	return Asset.Object;
 }
 
+UMaterialInstanceConstant *GetProudMaterial()
+{
+	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> ProudMat(TEXT("MaterialInstanceConstant'/Game/Mannequin/Character/Mesh/Protester1Mat.Protester1Mat'"));
+	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> Proud1Mat(TEXT("MaterialInstanceConstant'/Game/Mannequin/Character/Mesh/Protester2Mat.Protester2Mat'"));
+	static ConstructorHelpers::FObjectFinder<UMaterialInstanceConstant> Proud2Mat(TEXT("MaterialInstanceConstant'/Game/Mannequin/Character/Mesh/Protester3Mat.Protester3Mat'"));
+	int r = FMath::RandRange(0, 2);
+	if (r == 0)
+		return ProudMat.Object;
+	else if (r == 1)
+		return Proud1Mat.Object;
+	return Proud2Mat.Object;
+}
+
+UStaticMesh *GetProud()
+{
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Proud(TEXT("StaticMesh'/Game/Mannequin/Character/Mesh/proud.proud'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Proud1(TEXT("StaticMesh'/Game/Mannequin/Character/Mesh/Proud1.Proud1'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Proud2(TEXT("StaticMesh'/Game/Mannequin/Character/Mesh/Proud2.Proud2'"));
+	int r = FMath::RandRange(0, 2);
+	if (r == 0)
+		return Proud.Object;
+	else if (r == 1)
+		return Proud1.Object;
+	return Proud2.Object;
+}
+
+UStaticMesh *GetLMPT()
+{
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("StaticMesh'/Game/Mannequin/Character/Mesh/LMPT.LMPT'"));
+	return Asset.Object;
+}
+
+UStaticMesh *GetACAB()
+{
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("StaticMesh'/Game/Mannequin/Character/Mesh/ACAB.ACAB'"));
+	return Asset.Object;
+}
+
 UPaperSprite* GetAssetFromNote(FString const &button) {
 	if (button == "Square") {
 		return GetSquareAsset();
@@ -103,8 +141,11 @@ APataprideCharacter::APataprideCharacter()
 	GetCharacterMovement()->MaxWalkSpeed = 600.f;
 	GetCharacterMovement()->MaxFlySpeed = 600.f;
 	GetColorAsset();
+	GetProud();
+	GetProudMaterial();
+	GetACAB();
+	GetLMPT();
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 void APataprideCharacter::GenerateMusicNotes()
@@ -148,6 +189,67 @@ void APataprideCharacter::GenerateMusicNotes()
 			colorSprite->RegisterComponent();
 		}
 		noteSprite->RegisterComponent();
+	}
+}
+
+void APataprideCharacter::AddPride()
+{
+	USceneComponent *root = CameraBoom->GetAttachmentRoot();
+	USceneComponent *carac = root->GetChildComponent(root->GetNumChildrenComponents() - 1);
+	Enemy e;
+	e.isAcab = false;
+	e.mesh = NewObject<UStaticMeshComponent>(this);
+	if (!e.mesh || !e.mesh->IsValidLowLevel())
+		return;
+	e.mesh->SetupAttachment(carac);
+	e.mesh->SetVisibility(true);
+	e.mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	e.mesh->RegisterComponent();
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ACAB"));
+	e.life = 20;
+	e.strength = 3;
+	e.mesh->SetStaticMesh(GetProud());
+	//TODO material depending on flags
+	e.mesh->SetRelativeLocation(FVector(500.0f * FMath::RandRange(1, 6), 500.0f * FMath::RandRange(1, 4) + 3000.0f, 0.0f)); //TODO proper please
+	e.mesh->AddRelativeRotation(FRotator(0, 180, 0));
+	e.mesh->SetWorldScale3D(FVector(0.2f, 0.2f, 0.2f));
+	allies.Add(e);
+}
+
+void APataprideCharacter::GenerateEnemies(int nbEnemies)
+{
+	USceneComponent *root = CameraBoom->GetAttachmentRoot();
+	USceneComponent *carac = root->GetChildComponent(root->GetNumChildrenComponents() - 1);
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, carac->GetFullName());
+	enemies.Reserve(nbEnemies);
+	for (int i = 0; i < nbEnemies; ++i)
+	{
+		Enemy e;
+		e.isAcab = FMath::RandRange(0, 4) == 0 ? true : false;
+		e.mesh = NewObject<UStaticMeshComponent>(this);
+		if (!e.mesh || !e.mesh->IsValidLowLevel())
+			return;
+		e.mesh->SetupAttachment(carac);
+		e.mesh->SetVisibility(true);
+		e.mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		e.mesh->RegisterComponent();
+		if (e.isAcab)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ACAB"));
+			e.life = 20;
+			e.strength = 3;
+			e.mesh->SetStaticMesh(GetACAB());
+		}
+		else
+		{
+			e.life = 15;
+			e.strength = 1;
+			e.mesh->SetStaticMesh(GetLMPT());
+		}
+		e.mesh->SetRelativeLocation(FVector(500.0f * FMath::RandRange(1, 6), 500.0f * FMath::RandRange(1, 4) + 3000.0f, 0.0f)); //TODO proper please
+		e.mesh->AddRelativeRotation(FRotator(0, 180, 0));
+		e.mesh->SetWorldScale3D(FVector(0.2f, 0.2f, 0.2f));
+		enemies.Add(e);
 	}
 }
 

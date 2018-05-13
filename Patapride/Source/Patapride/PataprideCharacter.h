@@ -47,6 +47,14 @@ class APataprideCharacter : public ACharacter
 	{ FColor::Purple, FColor::White, FColor::Silver } }; //ASEXUAL
 	TArray<int> possibleFlags;
 	int currentFlag = 6;
+	typedef struct {
+		bool isAcab;
+		int strength;
+		int life;
+		UStaticMeshComponent *mesh;
+	} Enemy;
+	TArray<Enemy> enemies;
+	TArray<Enemy> allies;
 protected:
 	//void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
 	//void TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location);
@@ -61,6 +69,8 @@ protected:
 	virtual void BeginPlay() override;
 
 	void GenerateMusicNotes();
+	void GenerateEnemies(int nbEnemies);
+	void AddPride();
 	void UpdateNotesPositions(float deltaTime);
 	void checkNoteTiming(FString const &noteName);
 	void SetNextSpriteColor(FLinearColor const &col);
@@ -68,25 +78,25 @@ protected:
 public:
 	APataprideCharacter();
 	typedef enum { HOMO, LESBIAN, BI, TRANS, ASEXUAL } E_Flag;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int currentStrike = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int protestersNumber = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FLinearColor col1 = FColor::Purple;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FLinearColor col2 = FColor::Blue;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FLinearColor col3 = FColor::Green;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FLinearColor col4 = FColor::Yellow;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FLinearColor col5 = FColor::Red;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FLinearColor col6 = PINK;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FLinearColor col7 = FColor::White;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FLinearColor col8 = FColor::Silver;
 	UFUNCTION(BlueprintCallable, Category = "Widgets")
 		int GetCurrentFlag();

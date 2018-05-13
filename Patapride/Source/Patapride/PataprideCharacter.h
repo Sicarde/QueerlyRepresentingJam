@@ -38,7 +38,10 @@ class APataprideCharacter : public ACharacter
 
 	int currentNote = 0;
 	TArray<UPaperSpriteComponent*> notes;
-	double realtimeSeconds = 0;
+	double realtimeSeconds = 0.0;
+	double timerLesbian = 0.0;
+	double timerTrans = 0.0;
+	double timerAce = 0.0;
 
 	TArray<TArray<FLinearColor>> colorsFlags = { { FColor::Purple, FColor::Blue, FColor::Green, FColor::Yellow, FColor::Red }, //HOMO
 	{ FColor::Purple, FColor::White, PINK }, //LESBIAN
@@ -50,11 +53,13 @@ class APataprideCharacter : public ACharacter
 	typedef struct {
 		bool isAcab;
 		int strength;
-		int life;
+		float life;
 		UStaticMeshComponent *mesh;
 	} Enemy;
 	TArray<Enemy> enemies;
 	TArray<Enemy> allies;
+	int bonusDegat = 0;
+	UAudioComponent *audioComponent;
 protected:
 	//void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
 	//void TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location);
@@ -70,7 +75,10 @@ protected:
 
 	void GenerateMusicNotes();
 	void GenerateEnemies(int nbEnemies);
+	void DetectEnemies();
 	void AddPride();
+	void GiveDamage(float multiplier = 1.0f);
+	void ReceiveDamage();
 	void UpdateNotesPositions(float deltaTime);
 	void checkNoteTiming(FString const &noteName);
 	void SetNextSpriteColor(FLinearColor const &col);

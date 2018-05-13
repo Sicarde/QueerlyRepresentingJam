@@ -87,6 +87,20 @@ UPaperSprite* GetAssetFromNote(FString const &button) {
 	}
 }
 
+USoundWave *GetSoundFromNote(FString const &button) {
+	static ConstructorHelpers::FObjectFinder<USoundWave> Circle(TEXT("SoundWave'/Game/sounds/Circle.Circle'"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> Cross(TEXT("SoundWave'/Game/sounds/Cross.Cross'"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> Square(TEXT("SoundWave'/Game/sounds/Square.Square'"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> Triangle(TEXT("SoundWave'/Game/sounds/Triangle.Triangle'"));
+	if (button == "Square")
+		return Square.Object;
+	else if (button == "Triangle")
+		return Triangle.Object;
+	else if (button == "Circle")
+		return Circle.Object;
+	return Cross.Object;
+}
+
 APataprideCharacter::APataprideCharacter()
 {
 	// Set size for collision capsule
@@ -145,7 +159,11 @@ APataprideCharacter::APataprideCharacter()
 	GetProudMaterial();
 	GetACAB();
 	GetLMPT();
+	GetSoundFromNote("Square");
 	PrimaryActorTick.bCanEverTick = true;
+	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio"));
+	audioComponent->bAutoActivate = false;
+	audioComponent->SetupAttachment(RootComponent);
 }
 
 void APataprideCharacter::GenerateMusicNotes()
@@ -205,13 +223,11 @@ void APataprideCharacter::AddPride()
 	e.mesh->SetVisibility(true);
 	e.mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	e.mesh->RegisterComponent();
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ACAB"));
 	e.life = 20;
 	e.strength = 3;
 	e.mesh->SetStaticMesh(GetProud());
 	//TODO material depending on flags
-	e.mesh->SetRelativeLocation(FVector(500.0f * FMath::RandRange(1, 6), 500.0f * FMath::RandRange(1, 4) + 3000.0f, 0.0f)); //TODO proper please
-	e.mesh->AddRelativeRotation(FRotator(0, 180, 0));
+	e.mesh->SetRelativeLocation(FVector(500.0f * FMath::RandRange(1, 6), -500.0f * FMath::RandRange(1, 4), 0.0f)); //TODO proper please
 	e.mesh->SetWorldScale3D(FVector(0.2f, 0.2f, 0.2f));
 	allies.Add(e);
 }
@@ -235,7 +251,6 @@ void APataprideCharacter::GenerateEnemies(int nbEnemies)
 		e.mesh->RegisterComponent();
 		if (e.isAcab)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("ACAB"));
 			e.life = 20;
 			e.strength = 3;
 			e.mesh->SetStaticMesh(GetACAB());
@@ -253,15 +268,63 @@ void APataprideCharacter::GenerateEnemies(int nbEnemies)
 	}
 }
 
+void APataprideCharacter::DetectEnemies()
+{
+	for (TActorIterator<AStaticMeshActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		AStaticMeshActor *Mesh = *ActorItr;
+		if (!Mesh->GetName().Contains("ACAB") && !Mesh->GetName().Contains("LMPT"))
+			continue;
+		Enemy e;
+		e.mesh = Mesh->GetStaticMeshComponent();
+		e.isAcab = Mesh->GetName().Contains("ACAB") ? true : false;
+		if (e.isAcab)
+		{
+			e.life = 20;
+			e.strength = 3;
+		}
+		else
+		{
+			e.life = 15;
+			e.strength = 1;
+		}
+		enemies.Add(e);
+	}
+	TArray<USceneComponent*> childs;
+	GetRootComponent()->GetChildrenComponents(false, childs);
+	for (USceneComponent *c : childs)
+	{
+		if (c->GetFullName().Contains("proud"))
+		{
+			Enemy e;
+			e.mesh = (UStaticMeshComponent*)c;
+			e.isAcab = false;
+			e.life = 15;
+			e.strength = 1;
+			allies.Add(e);
+		}
+	}
+}
+
 void APataprideCharacter::BeginPlay() {
 	Super::BeginPlay();
 	GenerateMusicNotes();
 	CheckPossibleFlags();
+	DetectEnemies();
 }
 
 void APataprideCharacter::Tick(float deltaTime) {
 	Super::Tick(deltaTime);
 	realtimeSeconds += deltaTime;
+	timerLesbian -= deltaTime;
+	timerTrans -= deltaTime;
+	timerAce -= deltaTime;
+	if (timerLesbian < 0.0)
+		timerLesbian = 0.0;
+	if (timerTrans < 0.0)
+		timerTrans = 0.0;
+	if (timerAce < 0.0)
+		timerAce = 0.0;
 	FTimespan currentTime = FTimespan::FromSeconds(realtimeSeconds);
 	double currentTimeMs = currentTime.GetTotalMilliseconds();
 	if (currentNote >= testLevel.Num())
@@ -271,13 +334,27 @@ void APataprideCharacter::Tick(float deltaTime) {
 	if (timeNote + nbMSecGood < currentTimeMs)
 	{
 		notes[currentNote]->SetVisibility(false); //Fail
-		currentStrike = 0;
+		if (!(timerLesbian > 0.00001) && !(timerTrans > 0.00001))
+			ReceiveDamage();
+		if (timerTrans > 0.0)
+			GiveDamage();
+		else
+			currentStrike = 0;
 		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
 		if (color && color->IsValidLowLevel())
 			color->SetVisibility(false);
 		currentNote++;
+		if (audioComponent->IsValidLowLevelFast()) {
+			audioComponent->SetSound(GetSoundFromNote(n.button));
+			audioComponent->Play();
+		}
 	}
 	UpdateNotesPositions(deltaTime);
+	protestersNumber = allies.Num();
+	if (protestersNumber == 0)
+	{
+		//TODO LOOSE
+	}
 }
 
 void APataprideCharacter::UpdateNotesPositions(float deltaTime)
@@ -374,6 +451,40 @@ void APataprideCharacter::CheckPossibleFlags()
 		currentFlag = 0;
 }
 
+void APataprideCharacter::GiveDamage(float multiplier)
+{
+	for (Enemy a : allies)
+	{
+		int r = FMath::RandRange(0, enemies.Num() - 1);
+		if (enemies.Num() == 0)
+			return;
+		enemies[r].life -= a.strength * multiplier + bonusDegat / 2.0 * a.strength * multiplier;
+		if (enemies[r].life <= 0.0f)
+		{
+			enemies[r].mesh->DestroyComponent();
+			enemies.RemoveAt(r);
+			AddPride();
+		}
+	}
+}
+
+void APataprideCharacter::ReceiveDamage()
+{
+	for (Enemy e : enemies)
+	{
+		int r = FMath::RandRange(0, allies.Num() - 1);
+		if (allies.Num() == 0)
+			return;
+		allies[r].life -= e.strength;
+		if (allies[r].life <= 0.0f)
+		{
+			allies[r].mesh->DestroyComponent();
+			allies.RemoveAt(r);
+			AddPride();
+		}
+	}
+}
+
 void APataprideCharacter::checkNoteTiming(FString const &noteName)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("current note %d"), currentNote);
@@ -386,7 +497,7 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 	double currentTimeMs = currentTime.GetTotalMilliseconds();
 	if (timeNote - nbMSecPerf < currentTimeMs && timeNote + nbMSecPerf > currentTimeMs && n.button == noteName)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "PERFECT");
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "PERFECT");
 		notes[currentNote]->SetVisibility(false);
 		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
 		if (color && color->IsValidLowLevel())
@@ -395,12 +506,17 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 			color->SetVisibility(false);
 			CheckPossibleFlags();
 		}
+		GiveDamage(1.5f);
 		currentNote++;
 		currentStrike++;
+		if (audioComponent->IsValidLowLevelFast()) {
+			audioComponent->SetSound(GetSoundFromNote(n.button));
+			audioComponent->Play();
+		}
 	}
 	else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button == noteName)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "GOOD");
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "GOOD");
 		notes[currentNote]->SetVisibility(false);
 		USceneComponent *color = notes[currentNote]->GetChildComponent(0);
 		if (color && color->IsValidLowLevel())
@@ -409,13 +525,18 @@ void APataprideCharacter::checkNoteTiming(FString const &noteName)
 			color->SetVisibility(false);
 			CheckPossibleFlags();
 		}
+		GiveDamage();
 		currentNote++;
 		currentStrike++;
+		if (audioComponent->IsValidLowLevelFast()) {
+			audioComponent->SetSound(GetSoundFromNote(n.button));
+			audioComponent->Play();
+		}
 	}
-	else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button != noteName)
+	/*else if (timeNote - nbMSecGood < currentTimeMs && timeNote + nbMSecGood > currentTimeMs && n.button != noteName)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Wrong button :/");
 	else if (timeNote - nbMSecGood > currentTimeMs && n.button == noteName)
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Too early :/");
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Too early :/");//*/
 }
 
 
@@ -457,7 +578,27 @@ void APataprideCharacter::UseFlag()
 				}
 			}
 		}
-		//TODO flag effects
+		//TODO detect ennemies properly
+		if (possibleFlags[currentFlag] == HOMO) //Détruit le cortège adverse
+		{
+			for (int i = 0; i < enemies.Num(); ++i)
+			{
+				if (!enemies[i].isAcab)
+				{
+					enemies[i].mesh->DestroyComponent();
+					enemies.RemoveAt(i);
+					--i;
+				}
+			}
+		}
+		else if (possibleFlags[currentFlag] == LESBIAN) //Cortège invulnérable pendant 10s
+			timerLesbian = 10.0;
+		else if (possibleFlags[currentFlag] == BI) //Double degats
+			++bonusDegat;
+		else if (possibleFlags[currentFlag] == TRANS) //Toutes les notes jouées infligent des dégâts pendant 15s (elles ne sont pas forcément justes = ne comptent pas pour la streak en cours)
+			timerTrans = 15.0;
+		else //Le cortège est invisible pendant 10s(il avance au travers du cortège ennemi); permet de passer un blocus
+			timerAce = 10.0;
 		CheckPossibleFlags();
 	}
 }

@@ -16,6 +16,7 @@ UPaperSprite* GetTriangleAsset() {
 	static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("PaperSprite'/Game/TriangleSprite.TriangleSprite'"));
 	return Asset.Object;
 }
+
 UPaperSprite* GetSquareAsset() {
 	static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("PaperSprite'/Game/SquareSprite.SquareSprite'"));
 	return Asset.Object;
@@ -47,24 +48,6 @@ UPaperSprite* GetAssetFromNote(FString const &button) {
 		return GetCrossAsset();
 	}
 }
-
-/*UPaperSprite* GetFlagFromEnum(APataprideCharacter::E_Flag flag) {
-	//HOMO, LESBIAN, BI, TRANS, ASEXUAL
-	static ConstructorHelpers::FObjectFinder<UPaperSprite> Homo(TEXT("PaperSprite'/Game/GayFlag_Sprite.GayFlag_Sprite'"));
-	static ConstructorHelpers::FObjectFinder<UPaperSprite> Lesb(TEXT("PaperSprite'/Game/LesbianFlag_Sprite.LesbianFlag_Sprite'"));
-	static ConstructorHelpers::FObjectFinder<UPaperSprite> Bi(TEXT("PaperSprite'/Game/NBFlag_Sprite.NBFlag_Sprite'"));
-	static ConstructorHelpers::FObjectFinder<UPaperSprite> Trans(TEXT("PaperSprite'/Game/TransFlag_Sprite.TransFlag_Sprite'"));
-	static ConstructorHelpers::FObjectFinder<UPaperSprite> Ace(TEXT("PaperSprite'/Game/AceFlag_Sprite.AceFlag_Sprite'"));
-	if (flag == APataprideCharacter::HOMO)
-		return Homo.Object;
-	else if (flag == APataprideCharacter::LESBIAN)
-		return Lesb.Object;
-	else if (flag == APataprideCharacter::BI)
-		return Bi.Object;
-	else if (flag == APataprideCharacter::TRANS)
-		return Trans.Object;
-	return Ace.Object;
-}*/
 
 APataprideCharacter::APataprideCharacter()
 {
@@ -120,23 +103,16 @@ APataprideCharacter::APataprideCharacter()
 	GetCharacterMovement()->MaxWalkSpeed = 600.f;
 	GetCharacterMovement()->MaxFlySpeed = 600.f;
 	GetColorAsset();
-	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
-	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 	PrimaryActorTick.bCanEverTick = true;
 
 }
 
 void APataprideCharacter::GenerateMusicNotes()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Generate music"));
-	/*TArray<FVector> directions = { (SquareEnd->GetRelativeTransform().GetLocation() - SpriteSquare->GetRelativeTransform().GetLocation()).GetSafeNormal(),
-		(TriangleEnd->GetRelativeTransform().GetLocation() - SpriteTriangle->GetRelativeTransform().GetLocation()).GetSafeNormal(),
-		(CircleEnd->GetRelativeTransform().GetLocation() - SpriteCircle->GetRelativeTransform().GetLocation()).GetSafeNormal(),
-		(CrossEnd->GetRelativeTransform().GetLocation() - SpriteCross->GetRelativeTransform().GetLocation()).GetSafeNormal() }; //*/
 	TArray<FVector> directions = { (SpriteSquare->GetRelativeTransform().GetLocation() - SquareEnd->GetRelativeTransform().GetLocation()).GetSafeNormal(),
 		(SpriteTriangle->GetRelativeTransform().GetLocation() - TriangleEnd->GetRelativeTransform().GetLocation()).GetSafeNormal(),
 		(SpriteCircle->GetRelativeTransform().GetLocation() - CircleEnd->GetRelativeTransform().GetLocation()).GetSafeNormal(),
-		(SpriteCross->GetRelativeTransform().GetLocation() - CrossEnd->GetRelativeTransform().GetLocation()).GetSafeNormal() }; //*/
+		(SpriteCross->GetRelativeTransform().GetLocation() - CrossEnd->GetRelativeTransform().GetLocation()).GetSafeNormal() };
 	TArray<UPaperSpriteComponent*> sprites = { SquareEnd, TriangleEnd, CircleEnd, CrossEnd };
 	TArray<UPaperSpriteComponent*> spritesDetect = { SpriteSquare, SpriteTriangle, SpriteCircle, SpriteCross };
 
@@ -145,7 +121,6 @@ void APataprideCharacter::GenerateMusicNotes()
 	for (Note n : testLevel)
 	{
 		double timeNote = n.msec + n.sec * 1000.0 + n.min * 60000.0;
-		FString plop = "Note " + FString::SanitizeFloat(i);
 		i++;
 		int indexButton = 0;
 		buttonsNames.Find(n.button, indexButton);
@@ -184,7 +159,6 @@ void APataprideCharacter::BeginPlay() {
 
 void APataprideCharacter::Tick(float deltaTime) {
 	Super::Tick(deltaTime);
-	//float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 	realtimeSeconds += deltaTime;
 	FTimespan currentTime = FTimespan::FromSeconds(realtimeSeconds);
 	double currentTimeMs = currentTime.GetTotalMilliseconds();
@@ -210,12 +184,7 @@ void APataprideCharacter::UpdateNotesPositions(float deltaTime)
 	for (UPaperSpriteComponent *sprite : notes)
 	{
 		if (sprite && sprite->IsValidLowLevel())
-		{
 			sprite->SetRelativeLocation(sprite->GetRelativeTransform().GetLocation() + direction * speedNotes * deltaTime);
-			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "result : " + sprite->GetRelativeTransform().GetLocation().ToString());
-		}
-		else
-			UE_LOG(LogTemp, Warning, TEXT("Bitch is not working"));
 	}
 }
 
@@ -246,15 +215,9 @@ void APataprideCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 void APataprideCharacter::SetNextSpriteColor(FLinearColor const &col)
 {
 	if (col1 == basicColor)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "SET");
 		col1 = col;
-	}
 	else if (col1 == col)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "ALREADY THERE");
 		return;
-	}
 	else if (col2 == basicColor)
 		col2 = col;
 	else if (col2 == col)
@@ -271,8 +234,6 @@ void APataprideCharacter::SetNextSpriteColor(FLinearColor const &col)
 		col5 = col;
 	else if (col5 == col)
 		return;
-	else
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "NOBODY REALLY QUEEN");
 }
 
 void APataprideCharacter::CheckPossibleFlags()
